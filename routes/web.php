@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\SupportStatus;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Site\SiteController;
 
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/test', function() {
+    dd(array_column(SupportStatus::cases(),'name'));
+});
 
 Route::delete("/supports/{id}", [SupportController::class,"destroy"])->name('supports.destroy');
 

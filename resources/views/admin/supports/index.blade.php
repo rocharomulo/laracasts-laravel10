@@ -10,10 +10,10 @@
         <th></th>
     </thead>
     <tbody>
-        @foreach($supports as $support)  {{-- laço no array de suportes --}}
+        @foreach($supports->items() as $support)  {{-- laço no array de suportes --}}
             <tr>
                 <td>{{ $support->subject }}</td>
-                <td>{{ $support->status }}</td>
+                <td>{{ getStatusSupport($support->status) }}</td>
                 <td>{{ $support->body }}</td>
                 <td>
                     <a href="{{ route('supports.show',$support->id) }}">ver</a>
@@ -24,3 +24,7 @@
     </tbody>
 </table>
 
+<x-pagination
+    :paginator="$supports"
+    :appends="$filters"
+    />
