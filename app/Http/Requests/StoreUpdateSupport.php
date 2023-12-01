@@ -33,12 +33,13 @@ class StoreUpdateSupport extends FormRequest
             ]
         ];
 
-        if ($this->method() == 'PUT') {  // se estivermos fazendo um UPDATE na tabela, mudar as validações
+        if ($this->method() === 'PUT' || $this->method() === 'PATCH') {  // se estivermos fazendo um UPDATE na tabela, mudar as validações
+            $id = $this->support ?? $this->id;
             $rules['subject'] = [
                 'required',
                 'min:3',
                 'max:255',
-                Rule::unique('supports')->ignore($this->id) // o título do suporte deve ser único, mas ignorar quando o id for o mesmo
+                Rule::unique('supports')->ignore($this->support ?? $this->id) // o título do suporte deve ser único, mas ignorar quando o id for o mesmo
             ];
         }
 
